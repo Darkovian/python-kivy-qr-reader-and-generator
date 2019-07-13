@@ -1,0 +1,235 @@
+#:kivy 1.10.1
+
+<MenuScreen>
+    BoxLayout:
+        orientation: "vertical"
+        ActionBar:
+            pos_hint: {'top':1}
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: "Darkov's QR Codex - Main Menu"
+                    with_previous: False
+                ActionGroup:
+                    text: "    Navigation    "
+                    font_size: '20sp'
+                    mode: 'spinner'
+                    ActionButton:
+                        text: 'Generate QR Code'
+                        font_size: '18sp'
+                        on_press:
+                            root.manager.current = 'generate'
+                    ActionButton:
+                        text: 'Read QR Code'
+                        font_size: '18sp'
+                        on_press:
+                            app.reloadFiles()
+                        on_release:
+                            root.manager.current = 'read'
+                    ActionButton:
+                        text: 'Quit'
+                        font_size: '18sp'
+                        on_press: app.btnClose()
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: (38/255), (50/255), (56/255), 1.0
+                Rectangle: 
+                    pos: self.pos
+                    size: self.size
+            orientation: "vertical"
+            padding: 20
+            spacing: 10
+            Label:
+                markup: True
+                text: "[b]Darkov's QR Codex[/b]"
+                font_size: '24sp'
+                size_hint_y: 0.1
+            Button:
+                size_hint_y: None
+                size: (self.texture_size[0], 60)
+                text: "Generate QR Code"
+                font_size: '20sp'
+                background_color: (189/255), (189/255), (189/255), 1.0
+                on_press:
+                    root.manager.current = 'generate'
+            Button:
+                size_hint_y: None
+                size: (self.texture_size[0], 60)
+                text: "Read QR Code"
+                font_size: '20sp'
+                background_color: (189/255), (189/255), (189/255), 1.0
+                on_press:
+                    app.reloadFiles()
+                on_release:
+                    root.manager.current = 'read'
+
+<DataScreen>
+    BoxLayout:
+        orientation: "vertical"
+        ActionBar:
+            pos_hint: {'top':1}
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: "Darkov's QR Codex - Read"
+                    with_previous: False
+                ActionGroup:
+                    text: "    Navigation    "
+                    font_size: '20sp'
+                    mode: 'spinner'
+                    ActionButton:
+                        text: 'Generate QR Code'
+                        font_size: '18sp'
+                        on_press:
+                            root.manager.current = 'generate'
+                    ActionButton:
+                        text: 'Read QR Code'
+                        font_size: '18sp'
+                        on_press:
+                            app.reloadFiles()
+                        on_release:
+                            root.manager.current = 'read'
+                    ActionButton:
+                        text: 'Quit'
+                        font_size: '18sp'
+                        on_press: app.btnClose()
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: (38/255), (50/255), (56/255), 1.0
+                Rectangle: 
+                    pos: self.pos
+                    size: self.size
+            orientation: "vertical"
+            padding: 20
+            spacing: 10
+            Label:
+                text: app.txtReadData
+                font_size: '24sp'
+            Button:
+                text: "Back"
+                font_size: '20sp'
+                size_hint_y: 0.3
+                background_color: (189/255), (189/255), (189/255), 1.0
+                on_press:
+                    root.manager.current = 'read'
+            
+
+<ReadQR>
+    BoxLayout:
+        orientation: "vertical"
+        ActionBar:
+            pos_hint: {'top':1}
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: "Darkov's QR Codex - Read"
+                    with_previous: False
+                ActionGroup:
+                    text: "    Navigation    "
+                    font_size: '20sp'
+                    mode: 'spinner'
+                    ActionButton:
+                        text: 'Main Menu'
+                        font_size: '18sp'
+                        on_press:
+                            root.manager.current = 'menu'
+                    ActionButton:
+                        text: 'Generate QR Code'
+                        font_size: '18sp'
+                        on_press:
+                            root.manager.current = 'generate'
+                    ActionButton:
+                        text: 'Quit'
+                        font_size: '18sp'
+                        on_press: app.btnClose()
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: (38/255), (50/255), (56/255), 1.0
+                Rectangle: 
+                    pos: self.pos
+                    size: self.size
+            orientation: "vertical"
+            padding: 20
+            spacing: 10
+            FileChooserListView:
+                id: filechooser
+                rootpath: "/home/darkov/Documents/projects/python/qr"
+            
+            BoxLayout:
+                size_hint_y: None
+                height: 30
+                Button:
+                    text: "Load"
+                    font_size: '20sp'
+                    background_color: (189/255), (189/255), (189/255), 1.0
+                    on_press:
+                        root.load(filechooser.path, filechooser.selection)
+                    on_release:
+                        root.manager.current = 'datascreen'
+
+<GenerateQR>
+    BoxLayout:
+        orientation: "vertical"
+        ActionBar:
+            pos_hint: {'top':1}
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: "Darkov's QR Codex - Generate"
+                    with_previous: False
+                ActionGroup:
+                    text: "    Navigation    "
+                    font_size: '20sp'
+                    mode: 'spinner'
+                    ActionButton:
+                        text: 'Main Menu'
+                        font_size: '18sp'
+                        on_press:
+                            root.manager.current = 'menu'
+                    ActionButton:
+                        text: 'Read QR Code'
+                        font_size: '18sp'
+                        on_press:
+                            app.reloadFiles()
+                        on_release:
+                            root.manager.current = 'read'
+                    ActionButton:
+                        text: 'Quit'
+                        font_size: '18sp'
+                        on_press: app.btnClose()
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: (38/255), (50/255), (56/255), 1.0
+                Rectangle: 
+                    pos: self.pos
+                    size: self.size
+            orientation: "vertical"
+            padding: 20
+            spacing: 10
+            Label:
+                markup: True
+                text: "[b]Generate QR Code[/b]"
+                font_size: '24sp'
+                size_hint_y: 0.1
+            TextInput:
+                id: qr_data
+                multiline: True
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.2
+                Label:
+                    text: "Save QR Code to disk: "
+                    font_size: '20sp'
+                CheckBox:
+                    active: False
+                    id: checkBoxSave
+            Button:
+                text: "Generate!"
+                size_hint_y: 0.3
+                font_size: '20sp'
+                background_color: (189/255), (189/255), (189/255), 1.0
+                on_press: root.genQR()
